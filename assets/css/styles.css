@@ -1,12 +1,227 @@
-body {
-  color: black;
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
   font-size: 100%;
+  vertical-align: baseline;
+}
+
+html {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+q, blockquote {
+  quotes: none;
+}
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+  content: none;
+}
+
+a img {
+  border: none;
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
+  display: block;
+}
+
+ul {
+  list-style: none;
 }
 
 *,
-*::after,
-*::before {
+*:after,
+*:before {
+  outline: 0;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+html {
+  font-weight: 400;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+body {
+  color: rgba(0, 0, 0, 0.87);
+  background-color: transparent;
+}
+
+h1 {
+  font-weight: 100;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 38px;
+  line-height: 42px;
+  margin-bottom: 30px;
+}
+
+h2 {
+  font-weight: 100;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 30px;
+  line-height: 38px;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+h3 {
+  font-weight: 700;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 22px;
+  line-height: 32px;
+  letter-spacing: 1px;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+.small-text {
+  font-weight: 300;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 22px;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.extra-small-text {
+  font-weight: 300;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  line-height: 20px;
+  color: rgba(0, 0, 0, 0.4);
+}
+
+.text-uppercase {
+  text-transform: uppercase;
+}
+
+.text-lowercase {
+  text-transform: lowercase;
+}
+
+html {
+  height: 100% !important;
+}
+
+html, body {
+  overflow-x: auto;
+  overflow-y: auto;
+}
+
+body {
+  min-height: 100%;
+  padding-left: 0;
+}
+
+.wrapper {
+  position: absolute;
+  width: 100%;
+  min-height: 100%;
+  background-color: #f3f5f6;
+}
+
+.content {
+  padding-bottom: 72px;
+}
+
+.footer {
+  position: absolute;
+  height: 72px;
+  width: 100%;
+  left: 0;
+  bottom: 0;
+}
+.footer .footer__copyright,
+.footer .footer__regards {
+  width: 49%;
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  line-height: 68px;
+  color: rgba(0, 0, 0, 0.54);
+}
+.footer .footer__copyright {
+  text-align: left;
+}
+.footer .footer__regards {
+  text-align: right;
+  word-spacing: 2px;
+}
+.footer .footer__regards .footer__hearts {
+  color: #f46f67;
+}
+
+.header {
+  position: fixed;
+  width: 100%;
+  height: 50px;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(21, 21, 23, 0.95);
+}
+.header-nav {
+  min-width: 480px;
+  max-width: 80%;
+  height: 50px;
+  display: flex;
+  margin: 0 auto;
+  padding: 0 40px;
+  -webkit-box-align: center;
+  align-items: center;
+}
+.header-nav__list {
+  width: 100%;
+  display: flex;
+  padding: 0;
+}
+.header-nav__list-item {
+  display: list-item;
+  margin-left: 24px;
+  text-align: -webkit-match-parent;
+}
+.header-nav__list-item-link {
+  padding: 10px;
+  font-size: 14px;
+  color: white;
+}
+.header-nav__list-item-link:hover {
+  color: rgba(255, 255, 255, 0.7);
 }
