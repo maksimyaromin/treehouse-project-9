@@ -1,0 +1,1 @@
+{"version":3,"sources":["styles.css"],"names":[],"mappings":";;;;;;;;AAAA,KACA,WAAA,AACA,cAAA,CACA,AAEA,iBAKA,qBAAA,CACA","file":"styles.css","sourcesContent":["body {\r\n  color: black;\r\n  font-size: 100%;\r\n}\r\n\r\n*,\r\n*::after,\r\n*::before {\r\n  -moz-box-sizing: border-box;\r\n  -webkit-box-sizing: border-box;\r\n  box-sizing: border-box;\r\n}\r\n"]}

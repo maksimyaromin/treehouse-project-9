@@ -1,0 +1,12 @@
+@import "compass/css3/box-sizing";
+
+body {
+    color: black;
+    font-size: 100%;
+}
+
+*,
+*::after,
+*::before {
+    @include box-sizing(border-box);
+}
