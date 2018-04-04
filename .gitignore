@@ -10,6 +10,7 @@ package-lock.json
 
 # production
 /build
+src/config.js
 
 # misc
 .env.local
