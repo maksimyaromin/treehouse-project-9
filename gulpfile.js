@@ -2,6 +2,7 @@ const package = require("./package.json");
 
 const      gulp = require("gulp"),
             del = require("del"),
+            iff = require("gulp-if"),
         plumber = require("gulp-plumber"),
           newer = require("gulp-newer"),
          cached = require("gulp-cached"),
@@ -15,6 +16,7 @@ const      gulp = require("gulp"),
            size = require("gulp-size")
            sass = require("gulp-compass"),
        imagemin = require("gulp-imagemin"),
+           svgo = require("gulp-svgmin"),
     runSequence = require("run-sequence").use(gulp);
 
 const onError = err => {
@@ -78,16 +80,21 @@ gulp.task("styles", [ "compile:scss" ], () => {
 
 gulp.task("images", () => {
     fancyLog("-> Images optimizing");
-    return gulp.src(package.paths.src.images + "**/*.{png,jpg,ico}")
+    return gulp.src(package.paths.src.images + "**/*.{png,jpg,ico,svg}")
         .pipe(plumber({ errorHandler: onError }))
-        .pipe(imagemin({
+        .pipe(iff([ "*.{png,jpg}" ], imagemin({
             progressive: true,
             interlaced: true,
             optimizationLevel: 7,
             svgoPlugins: [ { removeViewBox: false } ],
             verbose: true,
             use: []
-        }))
+        })))
+        .pipe(iff([ "*.svg" ], svgo({
+            plugins: [{
+                cleanupIDs: { remove: false }
+            }]
+        })))
         .pipe(gulp.dest(package.paths.dist.images));
 });
 

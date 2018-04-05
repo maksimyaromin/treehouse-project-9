@@ -1,3 +1,4 @@
+@charset "UTF-8";
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -74,7 +75,7 @@ a {
 
 html {
   font-weight: 400;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 16px;
   line-height: 24px;
 }
@@ -86,7 +87,7 @@ body {
 
 h1 {
   font-weight: 100;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 38px;
   line-height: 42px;
   margin-bottom: 30px;
@@ -94,7 +95,7 @@ h1 {
 
 h2 {
   font-weight: 100;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 30px;
   line-height: 38px;
   color: rgba(0, 0, 0, 0.87);
@@ -102,7 +103,7 @@ h2 {
 
 h3 {
   font-weight: 700;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 22px;
   line-height: 32px;
   letter-spacing: 1px;
@@ -111,7 +112,7 @@ h3 {
 
 .small-text {
   font-weight: 300;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 22px;
   color: rgba(0, 0, 0, 0.6);
@@ -119,7 +120,7 @@ h3 {
 
 .extra-small-text {
   font-weight: 300;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 12px;
   line-height: 20px;
   color: rgba(0, 0, 0, 0.4);
@@ -172,7 +173,7 @@ body {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 12px;
   line-height: 68px;
   color: rgba(0, 0, 0, 0.54);
@@ -188,6 +189,9 @@ body {
   color: #f46f67;
 }
 
+/*
+    Шапка сайта
+*/
 .header {
   position: fixed;
   width: 100%;
@@ -195,6 +199,7 @@ body {
   top: 0;
   left: 0;
   right: 0;
+  z-index: 1000;
   background-color: rgba(21, 21, 23, 0.95);
 }
 .header-nav {
@@ -206,6 +211,7 @@ body {
   padding: 0 40px;
   -webkit-box-align: center;
   align-items: center;
+  justify-content: space-around;
 }
 .header-nav__list {
   width: 100%;
@@ -215,7 +221,11 @@ body {
 .header-nav__list-item {
   display: list-item;
   margin-left: 24px;
-  text-align: -webkit-match-parent;
+  text-align: left;
+}
+.header-nav__list-item_search {
+  margin-left: 0;
+  margin-right: auto;
 }
 .header-nav__list-item-link {
   padding: 10px;
@@ -224,4 +234,94 @@ body {
 }
 .header-nav__list-item-link:hover {
   color: rgba(255, 255, 255, 0.7);
+}
+
+/*
+    Стили для формы поиска изображений
+*/
+.search-form-wrapper {
+  position: absolute;
+  display: block;
+  top: 8.5px;
+}
+
+.search-form {
+  position: relative;
+  display: block;
+  height: 33px;
+}
+.search-form__input {
+  position: relative;
+  display: inline-block;
+  width: 220px;
+  height: 100%;
+  padding: 0 5px 0 38px;
+  border: 0 solid #ccc;
+  color: #000;
+  font-weight: 400;
+  font-family: Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 33px;
+  outline: none;
+  border-radius: 3px;
+  background-color: rgba(255, 255, 255, 0.8);
+  -moz-transition: background-color 250ms ease-in-out, width 250ms ease-in-out;
+  -o-transition: background-color 250ms ease-in-out, width 250ms ease-in-out;
+  -webkit-transition: background-color 250ms ease-in-out, width 250ms ease-in-out;
+  transition: background-color 250ms ease-in-out, width 250ms ease-in-out;
+}
+.search-form__input:focus {
+  width: 360px;
+  background-color: white;
+  -moz-box-shadow: inset 0 0 3px 1px rgba(0, 112, 255, 0.13);
+  -webkit-box-shadow: inset 0 0 3px 1px rgba(0, 112, 255, 0.13);
+  box-shadow: inset 0 0 3px 1px rgba(0, 112, 255, 0.13);
+}
+.search-form__button-container {
+  position: absolute;
+  width: 32px;
+  height: 100%;
+  top: 0;
+  left: 4px;
+}
+.search-form__button-container:hover .search-form__icon {
+  opacity: 1;
+}
+.search-form__icon {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  top: 50%;
+  left: 50%;
+  opacity: .6;
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  -moz-transition: opacity 250ms ease-in-out;
+  -o-transition: opacity 250ms ease-in-out;
+  -webkit-transition: opacity 250ms ease-in-out;
+  transition: opacity 250ms ease-in-out;
+}
+.search-form__button {
+  position: absolute;
+  width: 32px;
+  height: 100%;
+  background-color: transparent;
+  border: none;
+  text-indent: 200%;
+  top: 0;
+  left: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+/*
+    Стили для блока с контентом
+*/
+.content {
+  position: relative;
+  width: 100%;
+  height: auto;
+  padding: 50px 0 0;
 }

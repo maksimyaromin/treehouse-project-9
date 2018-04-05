@@ -19,7 +19,7 @@
 }
 
 @mixin font($size, $line-height) {
-    font-family: "Helvetica Neue", $compatible-fonts;
+    font-family: Roboto, "Helvetica Neue", $compatible-fonts;
     font-size: $size;
     line-height: $line-height;
 }

@@ -2,6 +2,7 @@
 @import "compass/css3/box-shadow";
 @import "compass/css3/transition";
 @import "compass/utilities/general/clearfix";
+@import "compass/css3/transform";
 
 @import "common/variables";
 @import "mixins/fonts";
@@ -11,6 +12,9 @@
 @import "common/layout";
 @import "common/footer";
 
+/*
+    Шапка сайта
+*/
 .header {
     position: fixed;
     width: 100%;
@@ -18,6 +22,7 @@
     top: 0;
     left: 0;
     right: 0;
+    z-index: 1000;
     background-color: $header-background-color;
 
     &-nav {
@@ -29,6 +34,7 @@
         padding: 0 40px;
         -webkit-box-align: center;
         align-items: center;
+        justify-content: space-around;
 
         &__list {
             width: 100%;
@@ -38,7 +44,12 @@
             &-item {
                 display: list-item;
                 margin-left: 24px;
-                text-align: -webkit-match-parent;
+                text-align: left;
+
+                &_search {
+                    margin-left: 0;
+                    margin-right: auto;
+                }
 
                 &-link {
                     padding: 10px;
@@ -52,4 +63,85 @@
             }
         }
     }
+}
+
+/*
+    Стили для формы поиска изображений
+*/
+.search-form-wrapper {
+    position: absolute;
+    display: block;
+    top: 8.5px;
+}
+
+.search-form {
+    position: relative;
+    display: block;
+    height: 33px;
+
+    &__input {
+        position: relative;
+        display: inline-block;
+        width: 220px;
+        height: 100%;
+        padding: 0 5px 0 38px;
+        border: 0 solid $base-border-color;
+        color: #000;
+        @include regular(14px, 33px);
+        outline: none;
+        border-radius: 3px;
+        background-color: transparentize(white, .2);
+        @include transition(background-color 250ms ease-in-out, width 250ms ease-in-out);
+
+        &:focus {
+            width: 360px;
+            background-color: white;
+            @include box-shadow(inset 0 0 3px 1px rgba(0, 112, 255, .13));
+        }
+    }
+
+    &__button-container {
+        position: absolute;
+        width: 32px;
+        height: 100%;
+        top: 0; left: 4px;
+
+        &:hover {
+            .search-form__icon {
+                opacity: 1;
+            }
+        }
+    }
+
+    &__icon {
+        position: absolute;
+        width: 18px;
+        height: 18px;
+        top: 50%; left: 50%;
+        opacity: .6;
+        @include translate(-50%, -50%);
+        @include transition(opacity 250ms ease-in-out);
+    }
+
+    &__button {
+        position: absolute;
+        width: 32px;
+        height: 100%;
+        background-color: transparent;
+        border: none;
+        text-indent: 200%;
+        top: 0; left: 0;
+        padding: 0;
+        cursor: pointer;
+    }
+}
+
+/*
+    Стили для блока с контентом
+*/
+.content {
+    position: relative;
+    width: 100%;
+    height: auto;
+    padding: 50px 0 0;
 }

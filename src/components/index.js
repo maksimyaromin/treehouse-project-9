@@ -90,39 +90,39 @@ class Gallery extends Component {
                                             to="/"
                                             activeClassName="header-nav__list-item-link_active"
                                         >
-                                            Search
+                                            Home
                                         </NavLink>
                                     )
                                 }
                             </li>
-                            <li key="sunsets" className="header-nav__list-item">
+                            <li key="belarus" className="header-nav__list-item">
                                 <NavLink 
                                     exact
                                     className="header-nav__list-item-link" 
-                                    to="/sunset"
+                                    to="/belarus"
                                     activeClassName="header-nav__list-item-link_active"
                                 >
-                                    Sunsets
+                                    Belarus
                                 </NavLink>
                             </li>
                             <li key="sea" className="header-nav__list-item">
                                 <NavLink 
                                     exact
                                     className="header-nav__list-item-link" 
-                                    to="/sea"
+                                    to="/osipovichi"
                                     activeClassName="header-nav__list-item-link_active"
                                 >
-                                    Sea
+                                    Osipovichi
                                 </NavLink>
                             </li>
                             <li key="wind" className="header-nav__list-item">
                                 <NavLink 
                                     exact
                                     className="header-nav__list-item-link" 
-                                    to="/wind"
+                                    to="/minsk"
                                     activeClassName="header-nav__list-item-link_active"
                                 >
-                                    Wind
+                                    Minsk
                                 </NavLink>
                             </li>
                         </ul>
