@@ -161,24 +161,24 @@ class Gallery extends Component {
                                     Belarus
                                 </NavLink>
                             </li>
-                            <li key="sea" className="header-nav__list-item">
+                            <li key="azores" className="header-nav__list-item">
                                 <NavLink 
                                     exact
                                     className="header-nav__list-item-link" 
-                                    to="/osipovichi"
+                                    to="/azores"
                                     activeClassName="header-nav__list-item-link_active"
                                 >
-                                    Osipovichi
+                                    Azores
                                 </NavLink>
                             </li>
-                            <li key="wind" className="header-nav__list-item">
+                            <li key="sardinia" className="header-nav__list-item">
                                 <NavLink 
                                     exact
                                     className="header-nav__list-item-link" 
-                                    to="/minsk"
+                                    to="/sardinia"
                                     activeClassName="header-nav__list-item-link_active"
                                 >
-                                    Minsk
+                                    Sardinia
                                 </NavLink>
                             </li>
                         </ul>
