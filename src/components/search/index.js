@@ -5,12 +5,14 @@ const SearchBox = (props) => {
         <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="./assets/images/sprite.svg#icon-search"></use> `;
     return (
         <div className="search-form-wrapper">
-            <form className="search-form">
+            <form className="search-form" onSubmit={e => props.onSubmit(e)}>
                 <input 
                     className="search-form__input" 
                     type="text" 
                     name="tag" 
                     placeholder="Тэг для поиска фото" 
+                    defaultValue={props.keyWord}
+                    onInput={e => props.onInput(e)}
                 />
                 <div className="search-form__button-container">
                     <svg className="search-form__icon" dangerouslySetInnerHTML={{ __html: icon }}></svg>

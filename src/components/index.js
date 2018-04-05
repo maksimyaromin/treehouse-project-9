@@ -7,23 +7,21 @@ import {
 } from "react-router-dom";
 import ImagesContainer from "./container";
 import SearchBox from "./search";
-import {
-    FLICKR_API_URL,
-    FLICKR_API_METHODS
-} from "../constants";
 import SourceModel from "../models/source";
-
-const makeRequest = (apiKey, tag) => {
-    return `
-        ${FLICKR_API_URL}?
-            method=${FLICKR_API_METHODS[Symbol.for("FLICKR_METHOD.SEARCH")]}&api_key=${apiKey}&tags=${tag}&format=json&nojsoncallback=1`;
-};
+import {
+    makeRequest,
+    debounce,
+    fadeIn,
+    fadeOut,
+    scrollToTop
+} from "../utils";
 
 class Gallery extends Component {
     constructor(props) {
         super(props);
         this.state = {
             isHome: this.props.location.pathname === "/",
+            isLoading: false,
             keyWord: "",
             sources: new Map()
         };
@@ -40,24 +38,46 @@ class Gallery extends Component {
         }
         return sources.get(this.tag);
     }
+    componentDidMount() {
+        window.addEventListener("scroll", debounce(this.onScroll, 200).bind(this), false);
+        const toTop = document.querySelector(".to-top");
+        if(toTop) {
+            toTop.addEventListener("click", () => {
+                scrollToTop(600);
+            });
+        }
+    }
     componentWillMount() {
         if(!this.state.isHome) {
-            this.componentWillLoadImages(this.tag);
+            this.componentWillShowImages(this.tag);
         }
     }
     componentWillReceiveProps(nextProps) {
         const location = nextProps.location.pathname;
         if(location !== "/" && this.props.location.pathname !== location) {
-            this.componentWillLoadImages(location.replace(/\//gi, ""));
+            this.componentWillShowImages(location.replace(/\//gi, ""));
         }
         this.setState({
             ...this.state,
             isHome: location === "/"
         });
     }
-    componentWillLoadImages(tag) {
-        if(this.state.sources.has(tag)) { return; }
-        const apiRequest = makeRequest(this.props.apiKey, tag);
+    componentWillShowImages(tag, isForce) {
+        const source = this.state.sources.get(tag)
+        if(source && !isForce) { return; }
+        let apiRequest;
+        if(source) {
+            apiRequest = makeRequest(this.props.apiKey, tag, source.page + 1);
+        } else {
+            apiRequest = makeRequest(this.props.apiKey, tag, 1);
+        }
+        this.setState({
+            ...this.state,
+            isLoading: true
+        });
+        this.componentWollLoadImages(tag, apiRequest, source);
+    }
+    componentWollLoadImages(tag, apiRequest, source) {
         fetch(apiRequest, {
             mode: "cors",
             method: "GET"
@@ -65,12 +85,44 @@ class Gallery extends Component {
             return response.json();
         }).then(response => {
             const sources = this.state.sources;
-            sources.set(tag, new SourceModel(response.photos));
+            if(source) {
+                source.update(response.photos);
+                sources.set(tag, source);
+            } else {
+                sources.set(tag, new SourceModel(response.photos));
+            }
             this.setState({
                 ...this.state,
-                sources
+                sources,
+                isLoading: false
             });
         });
+    }
+    onScroll() {
+        const source = this.source;
+        if(!source) { return; }
+        const offsetTop = window.innerHeight + window.scrollY;
+        const inBottom = document.querySelector(".wrapper").scrollHeight === offsetTop;
+        const toTop = document.querySelector(".to-top");
+        if(offsetTop > document.body.scrollHeight + 500) {
+            fadeIn(toTop);
+        } else {
+            fadeOut(toTop);
+        }
+        if(inBottom && !this.state.isLoading && source.hasImages && source.total > source.images.length) {
+            this.componentWillShowImages(this.tag, true);
+        }
+    }
+    onInput(e) {
+        const value = e.target.value;
+        this.setState({
+            ...this.state,
+            keyWord: value
+        });
+    }
+    onSearch(e) {
+        e.preventDefault();
+        this.componentWillShowImages(this.tag);
     }
     render() {
         return (
@@ -81,7 +133,11 @@ class Gallery extends Component {
                             <li key="search" className="header-nav__list-item header-nav__list-item_search">
                                 {this.state.isHome
                                     ? (
-                                        <SearchBox />
+                                        <SearchBox 
+                                            keyWord={this.state.keyWord}
+                                            onInput={this.onInput.bind(this)} 
+                                            onSubmit={this.onSearch.bind(this)}
+                                        />
                                     )
                                     : (
                                         <NavLink 
@@ -132,13 +188,14 @@ class Gallery extends Component {
                 <main className="content">
                     <Switch>
                         <Route exact path="/" render={() => (
-                            <ImagesContainer tag={this.state.keyWord} source={this.source} />
+                            <ImagesContainer tag={this.state.keyWord} source={this.source} isLoading={this.state.isLoading} />
                         )} />
                         <Route path="/:tag" render={(props) => (
-                            <ImagesContainer tag={props.match.params.tag} source={this.source} />
+                            <ImagesContainer tag={props.match.params.tag} source={this.source} isLoading={this.state.isLoading} />
                         )} />
                     </Switch>
                 </main>
+                <div className="to-top"></div>
             </div>
         );
     }

@@ -14,14 +14,20 @@ export class Photo {
 };
 
 class Source {
-    constructor({ page, pages, perpage: count, photo: data }) {
+    constructor({ page, pages, perpage, photo: images, total }) {
         this.page = page;
         this.pages = pages;
-        this.count = count;
-        this.hasImages = !!data;
+        this.perpage = perpage;
+        this.total = total;
+        this.hasImages = !!images && !!images.length;
         if(this.hasImages) {
-            this.images = data.map(imageDTO => new Photo(imageDTO));
+            this.images = images.map(imageDTO => new Photo(imageDTO));
         }
+    }
+    update({ page, photo: images }) {
+        if(!images) { return; }
+        images = images.map(imageDTO => new Photo(imageDTO));
+        this.images = [ ...this.images, ...images ];
     }
 };
 

@@ -6,6 +6,7 @@
 
 @import "common/variables";
 @import "mixins/fonts";
+@import "mixins/media";
 
 @import "common/reset";
 @import "common/type";
@@ -143,5 +144,203 @@
     position: relative;
     width: 100%;
     height: auto;
-    padding: 50px 0 0;
+    padding: 122px 0 0;
+}
+
+/*
+    Стили для справочной шапки в изображениях
+*/
+.images-header {
+    position: fixed;
+    width: 100%;
+    height: 72px;
+    top: 50px;
+    left: 0; right: 0;
+    background-color: white;
+    z-index: 1000;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 100% auto;
+
+    &_active {
+        .images-header__tag {
+            span {
+                background-color: white;
+                padding: 10px;
+                border-radius: 10px;
+            }
+        }
+        .images-header__page {
+            background-color: white;
+            padding: 10px;
+            border-radius: 10px;
+        }
+    }
+
+    &__wrapper {
+        position: relative;
+        min-width: 480px;
+        max-width: 80%;
+        padding: 0 40px;
+        margin: 0 auto;
+    }
+
+    &__tag {
+        position: relative;
+        @include bold(24px, 72px);
+        text-transform: uppercase;
+        letter-spacing: 5px;
+        text-align: center;
+        color: $base-text-color;
+    }
+
+    &__page {
+        position: absolute;
+        top: 50%;
+        right: 50px;
+        color: $inaccent-text-color;
+        @include translateY(-50%);
+        @include regular(14px, 1);
+
+        &-total, &-info {
+            font-weight: bold;
+        }
+    }
+}
+
+/*
+    Стили для сетки с изображениями
+*/
+.images {
+    min-width: 480px;
+    max-width: 80%;
+    padding: 50px;
+    margin: 0 auto;
+
+    &-list {
+        width: 100%;
+        max-width: 100%;
+
+        &__item {
+            position: relative;
+            display: block;
+            margin-bottom: 30px;
+            width: 100%;
+
+            .image-wrapper {
+                background-color: white;
+                @include box-shadow(
+                    0 1px 3px rgba(0, 0, 0, .12), 
+                    0 1px 2px rgba(0, 0, 0, .24)
+                );
+                @include transition(box-shadow 0.3s cubic-bezier(.25, .8, .25, 1));
+    
+                &:hover {
+                    @include box-shadow(
+                        0 14px 28px rgba(0,0,0,0.25), 
+                        0 10px 10px rgba(0,0,0,0.22)
+                    );
+                }
+            }
+
+            .image {
+                width: 100%;
+                display: block;
+            }
+
+            .image-title {
+                padding: 10px 15px;
+                @include regular(14px, 1.7);
+                color: $inaccent-text-color;
+            }
+        }
+
+        @include media-mid() {
+            display: grid;
+            justify-content: center;
+            align-content: center;
+            grid-template-columns: repeat(2, 1fr);
+            grid-gap: 30px;
+
+            &__item {
+                display: inline-block;
+                margin-bottom: 0;
+            }
+        }
+
+        @include media-large() {
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 20px;
+        }
+    }
+}
+
+.images-wrapper {
+    position: relative;
+    z-index: 100;
+}
+
+.to-top {
+    position: fixed;
+    display: none;
+    width: 50px;
+    height: 50px;
+    background-color: $accent-border-color;
+    z-index: 1000;
+    bottom: 50px;
+    left: 50px;
+    border-radius: 4px;
+    border: 3px solid darken($accent-border-color, 15%);
+    cursor: pointer;
+    @include transition(transform 250ms ease-in-out);
+
+    &:hover {
+        @include scale(1.2);
+    }
+
+    &::after {
+        position: absolute;
+        content: "";
+        width: 20px;
+        height: 20px;
+        border: 0 solid darken($accent-border-color, 15%);
+        border-width: 3px 0 0 3px;
+        top: 18px; left: 12px;
+        @include rotate(45deg);
+    }
+}
+
+/*
+    Стили для информационных сообщений
+*/
+.images-message {
+    max-width: 80%;
+    margin: 0 auto;
+    text-align: center;
+    padding: 200px 50px;
+
+    &__line-1,
+    &__line-2 {
+        display: block;
+    }
+
+    &__line-1 {
+        @include bold(24px, 72px);
+        color: $inaccent-text-color;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+    &__line-2 {
+        @include regular(16px, 1.6);
+    }
+
+    &__loader {
+        width: 100px;
+        height: 100px;
+        background-color: white;
+        border-radius: 50%;
+        border: 10px solid white;
+        @include box-shadow(0 0 4px rgba(0, 0, 0, .34));
+    }
 }

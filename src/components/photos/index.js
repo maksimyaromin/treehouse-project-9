@@ -2,10 +2,10 @@ import React from "react";
 import Photo from "./photo";
 
 const Photos = (props) => {
-    const images = props.source.images.map(image => 
-        <Photo key={image.id} image={image} />);
+    const images = props.source.map((image, index) => 
+        <Photo key={image.id + index} image={image} />);
     return (
-        <div>{images}</div>
+        <ul className="images-list">{images}</ul>
     );
 };
 
