@@ -1,4 +1,5 @@
 
+/* Модель отражающая одну фотографию */
 export class Photo {
     constructor({ id, farm, owner, secret, server, title }) {
         this.id = id;
@@ -8,11 +9,13 @@ export class Photo {
         this.server = server;
         this.title = title;
     }
+    /* Свойство на ссылку на фотографию на основании маски фликера и данных о фотографии */
     get link() {
         return `https://farm${this.farm}.staticflickr.com/${this.server}/${this.id}_${this.secret}_z.jpg`;
     }
 };
 
+/* Модель отражающая коллекцию фотографий, полученных от фликера */
 class Source {
     constructor({ page, pages, perpage, photo: images, total }) {
         this.page = page;

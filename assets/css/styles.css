@@ -1,4 +1,8 @@
 @charset "UTF-8";
+/*
+    Я написал немного стилей, чтобы проект выглядел приятно. Наконец-то в вашем задании я увидел такой пункт - напишите стили. Хотя я уверен, что я привысил
+    свои полномочия (вы просили дописать / изменить ваш файл стилей), но надеюсь что это приемлимо.
+*/
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -391,6 +395,21 @@ body {
 /*
     Стили для сетки с изображениями
 */
+.images > .images-message__loader {
+  width: 64px;
+  height: 64px;
+  position: absolute;
+  margin: 30px 0;
+  text-align: center;
+  bottom: 0;
+  left: 50%;
+  z-index: 1000;
+  -moz-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+}
+
 .images {
   min-width: 480px;
   max-width: 80%;
@@ -403,9 +422,10 @@ body {
 }
 .images-list__item {
   position: relative;
-  display: block;
+  display: inline-block;
   margin-bottom: 30px;
   width: 100%;
+  vertical-align: top;
 }
 .images-list__item .image-wrapper {
   background-color: white;
@@ -433,13 +453,14 @@ body {
   font-size: 14px;
   line-height: 1.7;
   color: rgba(0, 0, 0, 0.54);
+  word-break: break-all;
 }
 @media (min-width: 1000px) {
   .images-list {
     display: grid;
     justify-content: center;
     align-content: center;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(calc(100% / 3), 1fr));
     grid-gap: 30px;
   }
   .images-list__item {
@@ -449,7 +470,7 @@ body {
 }
 @media (min-width: 1210px) {
   .images-list {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(calc(100% / 4), 1fr));
     grid-gap: 20px;
   }
 }
@@ -533,4 +554,39 @@ body {
   -moz-box-shadow: 0 0 4px rgba(0, 0, 0, 0.34);
   -webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.34);
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.34);
+}
+
+/*
+    Стили для отображения ошибок
+*/
+.error {
+  max-width: 80%;
+  margin: 0 auto;
+  text-align: center;
+  padding: 200px 50px;
+}
+.error-code {
+  font-weight: 700;
+  font-family: Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 72px;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.54);
+}
+.error-text {
+  margin: 30px 0;
+}
+.error-text__description {
+  font-weight: 700;
+  font-family: Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 18px;
+  line-height: 26px;
+  letter-spacing: 1px;
+}
+.error-text__message {
+  margin-top: 10px;
+  font-weight: 400;
+  font-family: Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 18px;
+  line-height: 24px;
+  color: rgba(0, 0, 0, 0.54);
 }

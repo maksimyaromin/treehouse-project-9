@@ -1,3 +1,7 @@
+/*
+    Я написал немного стилей, чтобы проект выглядел приятно. Наконец-то в вашем задании я увидел такой пункт - напишите стили. Хотя я уверен, что я привысил
+    свои полномочия (вы просили дописать / изменить ваш файл стилей), но надеюсь что это приемлимо.
+*/
 @import "compass/css3/box-sizing";
 @import "compass/css3/box-shadow";
 @import "compass/css3/transition";
@@ -212,6 +216,20 @@
     Стили для сетки с изображениями
 */
 .images {
+    & > .images-message__loader {
+        width: 64px;
+        height: 64px;
+        position: absolute;
+        margin: 30px 0;
+        text-align: center;
+        bottom: 0;
+        left: 50%;
+        z-index: 1000;
+        @include translateX(-50%);
+    }
+}
+
+.images {
     min-width: 480px;
     max-width: 80%;
     padding: 50px;
@@ -223,9 +241,10 @@
 
         &__item {
             position: relative;
-            display: block;
+            display: inline-block;
             margin-bottom: 30px;
             width: 100%;
+            vertical-align: top;
 
             .image-wrapper {
                 background-color: white;
@@ -252,6 +271,7 @@
                 padding: 10px 15px;
                 @include regular(14px, 1.7);
                 color: $inaccent-text-color;
+                word-break: break-all;
             }
         }
 
@@ -259,7 +279,7 @@
             display: grid;
             justify-content: center;
             align-content: center;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(auto-fill, minmax(calc(100% / 3), 1fr));
             grid-gap: 30px;
 
             &__item {
@@ -269,7 +289,7 @@
         }
 
         @include media-large() {
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(auto-fill, minmax(calc(100% / 4), 1fr));
             grid-gap: 20px;
         }
     }
@@ -342,5 +362,35 @@
         border-radius: 50%;
         border: 10px solid white;
         @include box-shadow(0 0 4px rgba(0, 0, 0, .34));
+    }
+}
+
+/*
+    Стили для отображения ошибок
+*/
+.error {
+    max-width: 80%;
+    margin: 0 auto;
+    text-align: center;
+    padding: 200px 50px;
+
+    &-code {
+        @include bold(72px, 1);
+        color: $inaccent-text-color;
+    }
+
+    &-text {
+        margin: 30px 0;
+        
+        &__description {
+            @include bold(18px, 26px);
+            letter-spacing: 1px;
+        }
+
+        &__message {
+            margin-top: 10px;
+            @include regular(18px, 24px);
+            color: $inaccent-text-color;
+        }
     }
 }

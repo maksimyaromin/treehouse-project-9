@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import {
     Route,
     NavLink,
@@ -15,7 +16,13 @@ import {
     fadeOut,
     scrollToTop
 } from "../utils";
+import {
+    Error404,
+    Error500
+} from "./errors";
+import { FLICKR_API_STATUSES } from "../constants";
 
+/* Основной компонент (компонент верхнего уровня). Содержит основную логику приложения и возвращает в рендере основную разметку */
 class Gallery extends Component {
     constructor(props) {
         super(props);
@@ -23,14 +30,17 @@ class Gallery extends Component {
             isHome: this.props.location.pathname === "/",
             isLoading: false,
             keyWord: "",
-            sources: new Map()
+            sources: new Map(),
+            error: null
         };
     }
+    /* Свойство содержит текущий тег для поиска изображений для быстрого доступа к нему */
     get tag() {
         return this.state.isHome 
             ? this.state.keyWord
             : this.props.location.pathname.replace(/\//gi, "");
     }
+    /* Свойство содержит текущее хранилище фотографий по тэгу. Если фотографии по тэгу не были загружены, то вернет null */
     get source() {
         const sources = this.state.sources;
         if(!sources.has(this.tag)) {
@@ -39,7 +49,9 @@ class Gallery extends Component {
         return sources.get(this.tag);
     }
     componentDidMount() {
+        /* Приложение поддерживает функцию подгрузки изображений, если пользователь долистал до конца страницы (реализация бесконечного скрола) */
         window.addEventListener("scroll", debounce(this.onScroll, 200).bind(this), false);
+        /* В интерфейсе есть элемент, который может помочь пользователю быстро вернуться в верх страницы */
         const toTop = document.querySelector(".to-top");
         if(toTop) {
             toTop.addEventListener("click", () => {
@@ -48,22 +60,29 @@ class Gallery extends Component {
         }
     }
     componentWillMount() {
+        /* Если начинаем не с домашней страницы, то сразу загрузить картинки по тэгу */
         if(!this.state.isHome) {
             this.componentWillShowImages(this.tag);
         }
     }
     componentWillReceiveProps(nextProps) {
         const location = nextProps.location.pathname;
-        if(location !== "/" && this.props.location.pathname !== location) {
-            this.componentWillShowImages(location.replace(/\//gi, ""));
-        }
+        const isNewRoute = location !== "/" && this.props.location.pathname !== location;
         this.setState({
             ...this.state,
-            isHome: location === "/"
+            isHome: location === "/",
+            error: null
+        }, () => {
+            if(isNewRoute) {
+                /* Если меняем маршрут, то загружаем новые картинки, если страницы не домашняя */
+                this.componentWillShowImages(location.replace(/\//gi, ""));
+            }
         });
     }
+    /* Функция с логикой отображения фотографий. Если по запрашиваему тэгу в стэйте есть хранилище фотографий, то оно вернется сразу (только если не установлен
+        признак isForce, если установлен - то значит мы подгружаем новые картинки к существующему хранилищу). */
     componentWillShowImages(tag, isForce) {
-        const source = this.state.sources.get(tag)
+        const source = this.state.sources.get(tag);
         if(source && !isForce) { return; }
         let apiRequest;
         if(source) {
@@ -74,30 +93,54 @@ class Gallery extends Component {
         this.setState({
             ...this.state,
             isLoading: true
-        });
-        this.componentWollLoadImages(tag, apiRequest, source);
+        }, () => this.componentWillLoadImages(tag, apiRequest, source));
     }
-    componentWollLoadImages(tag, apiRequest, source) {
+    /* Запрос за новыми картинками при помощи fetch. Поддерживает логику обработки ошибок. Если в ходе запроса вернется исключение, то в стэйте будет установлено
+        соответствующее свойство и ошибка отобразится на странице. */
+    componentWillLoadImages(tag, apiRequest, source) {
         fetch(apiRequest, {
             mode: "cors",
             method: "GET"
         }).then(response => {
             return response.json();
         }).then(response => {
-            const sources = this.state.sources;
-            if(source) {
-                source.update(response.photos);
-                sources.set(tag, source);
-            } else {
-                sources.set(tag, new SourceModel(response.photos));
+            const { stat } = response;
+            if(stat === FLICKR_API_STATUSES[Symbol.for("FLICKR_STATUS.DONE")]) {
+                const sources = this.state.sources;
+                if(source) {
+                    source.update(response.photos);
+                    sources.set(tag, source);
+                } else {
+                    sources.set(tag, new SourceModel(response.photos));
+                }
+                this.setState({
+                    ...this.state,
+                    sources,
+                    isLoading: false
+                });
+                return;
             }
+           
+            const { message, code } = response;
             this.setState({
                 ...this.state,
-                sources,
-                isLoading: false
+                isLoading: false,
+                error: {
+                    message,
+                    code
+                }
+            });
+        }).catch(err => {
+            this.setState({
+                ...this.state,
+                isLoading: false,
+                error: {
+                    message: err.message
+                }
             });
         });
     }
+    /* Реализация функционала бесконечного скролла */
     onScroll() {
         const source = this.source;
         if(!source) { return; }
@@ -113,6 +156,7 @@ class Gallery extends Component {
             this.componentWillShowImages(this.tag, true);
         }
     }
+    /* Обработка ввода в поле поиска */
     onInput(e) {
         const value = e.target.value;
         this.setState({
@@ -120,6 +164,7 @@ class Gallery extends Component {
             keyWord: value
         });
     }
+    /* Функция поиска изображений */
     onSearch(e) {
         e.preventDefault();
         this.componentWillShowImages(this.tag);
@@ -185,20 +230,39 @@ class Gallery extends Component {
                     </nav>
                 </header>
 
+                {/* Для отображений изображений используется один и тот же компонент. Я решил не делать много компонентов с одной логикой. В таблице маршрутов
+                    присутствует маршрут /:tag, т. е. вы можете ввести любое ключевое слово прямо в адрессную строку (/sunsets) и получить результаты */}
                 <main className="content">
                     <Switch>
                         <Route exact path="/" render={() => (
-                            <ImagesContainer tag={this.state.keyWord} source={this.source} isLoading={this.state.isLoading} />
+                            this.state.error
+                                ? (
+                                    <Error500 code={this.state.error.code} message={this.state.error.message} />
+                                )
+                                : (
+                                    <ImagesContainer tag={this.state.keyWord} source={this.source} isLoading={this.state.isLoading} />
+                                )
                         )} />
-                        <Route path="/:tag" render={(props) => (
-                            <ImagesContainer tag={props.match.params.tag} source={this.source} isLoading={this.state.isLoading} />
+                        <Route exact path="/:tag" render={(props) => (
+                            this.state.error
+                                ? (
+                                    <Error500 code={this.state.error.code} message={this.state.error.message} />
+                                )
+                                : (
+                                    <ImagesContainer tag={props.match.params.tag} source={this.source} isLoading={this.state.isLoading} />                           
+                                )
                         )} />
+                        <Route component={Error404} />
                     </Switch>
                 </main>
                 <div className="to-top"></div>
             </div>
         );
     }
+};
+Gallery.propTypes = {
+    apiKey: PropTypes.string.isRequired,
+    location: PropTypes.object.isRequired
 };
 
 export default withRouter(Gallery);

@@ -1,5 +1,7 @@
 import React from "react";
+import PropTypes from "prop-types";
 
+/* Компонент с полем поиска. Ничего сложного. Просто поле и кнопка. Вертку делал подобной на фликер. */
 const SearchBox = (props) => {
     const icon = `
         <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="./assets/images/sprite.svg#icon-search"></use> `;
@@ -26,6 +28,11 @@ const SearchBox = (props) => {
             </form>
         </div>
     );
+};
+SearchBox.propTypes = {
+    onSubmit: PropTypes.func.isRequired,
+    onInput: PropTypes.func.isRequired,
+    keyWord: PropTypes.string
 };
 
 export default SearchBox;

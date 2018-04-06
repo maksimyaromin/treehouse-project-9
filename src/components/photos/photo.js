@@ -1,5 +1,8 @@
 import React from "react";
+import PropTypes from "prop-types";
+import { Photo as PhotoModel } from "../../models/source";
 
+/* При наведении курсора на фотографию она будет установлена в качестве background-image для шапки с тэгом. Просто по приколу */
 const showImage = (e) => {
     let target = e.target;
     if(target.tagName !== "IMG") {
@@ -11,12 +14,14 @@ const showImage = (e) => {
     previewContext.classList.add("images-header_active");
 };
 
+/* Удалить установленный предыдущей функцией background-image */
 const hideImage = (e) => {
     const previewContext = document.querySelector(".images-header");
     previewContext.style.backgroundImage = `none`;
     previewContext.classList.remove("images-header_active");
 };
 
+/* Компонент отображения одной фотографии */
 const Photo = ({ image }) => {
     return (
         <li className="images-list__item">
@@ -28,6 +33,9 @@ const Photo = ({ image }) => {
             </div>
         </li>
     );
+};
+Photo.propTypes = {
+    image: PropTypes.instanceOf(PhotoModel).isRequired
 };
 
 export default Photo;

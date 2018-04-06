@@ -1,14 +1,17 @@
+/* Файл содержит вспомогательные функции, которые используются в разных местах приложения. */
 import {
     FLICKR_API_URL,
     FLICKR_API_METHODS
 } from "../constants";
 
+/* Создает запрос к АПИ фликера, добавляя к нему ключ пользователя, тэг и страницу, если это необходимо */
 export const makeRequest = (apiKey, tag, page) => {
     return `
         ${FLICKR_API_URL}?
             method=${FLICKR_API_METHODS[Symbol.for("FLICKR_METHOD.SEARCH")]}&api_key=${apiKey}&tags=${tag}&page=${page}&format=json&nojsoncallback=1`;
 };
 
+/* Распространенная функция в JS. Облегчает работу при часто провторяющихся вызовах. Подробнее можете погуглить, если вдруг не слышали о такой. */
 export const debounce = (action, ms) => {
     let timer = null;
     return function (...args) {
@@ -22,6 +25,8 @@ export const debounce = (action, ms) => {
         timer = setTimeout(onComplete, ms);
     };
 };
+
+/* Далее три функции: простая реализация анимации некоторых действий. Смысл функций отражает их название. */
 
 export const fadeIn = element => {
     if(element.classList.contains("fade-in")) { return; }

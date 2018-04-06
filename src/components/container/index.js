@@ -1,13 +1,17 @@
 import React from "react";
 import Photos from "../photos";
+import PropTypes from "prop-types";
+import SourceModel from "../../models/source";
 
+/* Общий контейнер для страницы с фотографиями */
 const Container = (props) => {
     const source = props.source;
     const hasContent = source && source.hasImages;
     let message = null;
+    /* если в данный момент происходит загрузка (подгрузка новых) изображений, то в поле будет записан лоадер */
     if(props.isLoading) {
         message = <img className="images-message__loader" src="./assets/images/loader.svg" alt="Loading..." />;
-    } else if(!hasContent) {
+    } else if(!hasContent) { /* если нет изображений - то вывести или предупреждение, или приветственное сообщение */
         message = props.tag
             ? (
                 <div className="images-message_empty">
@@ -45,6 +49,7 @@ const Container = (props) => {
                 ? (
                     <div className="images">
                         <Photos source={source.images} />
+                        {message}
                     </div>
                 )
                 : (
@@ -55,6 +60,11 @@ const Container = (props) => {
             }
         </div>
     );
+};
+Container.propTypes = {
+    tag: PropTypes.string,
+    source: PropTypes.instanceOf(SourceModel),
+    isLoading: PropTypes.bool
 };
 
 export default Container;

@@ -1,3 +1,9 @@
+/*
+    Я использовал несколько галп-задач из предыдущего проекта для сборки стилей и изображений. Вы можете сказать, что в подходе create-react-app стили
+    пишутся для каждого компонента и собираются встроенным веб-паком. И даже при желании можно использовать SCSS или LESS. Но я считал и считаю такой подход
+    грязным. Много дискуссий на эту тему поднято, но мне приятней писать стили в отдельном месте. А верстку снабжать понятными CSS классами по БЭМ методологии (немного
+    мной модернизированной под себя). Мои галп-задачи встроены в процесс сборки. Запускать приложение вы можете по прежнему командой npm start, а собирать npm run build
+*/
 const package = require("./package.json");
 
 const      gulp = require("gulp"),
@@ -14,7 +20,7 @@ const      gulp = require("gulp"),
         cssnano = require("gulp-cssnano"),
          concat = require("gulp-concat"),
            size = require("gulp-size")
-           sass = require("gulp-compass"),
+           //sass = require("gulp-compass"),
        imagemin = require("gulp-imagemin"),
            svgo = require("gulp-svgmin"),
     runSequence = require("run-sequence").use(gulp);
@@ -99,11 +105,11 @@ gulp.task("images", () => {
 });
 
 gulp.task("build:assets", (done) => {
-    runSequence("clean", "styles", "images", done);
+    //runSequence("clean", "styles", "images", done);
 });
 
 gulp.task("watch:scss", () => {
-    gulp.watch([ 
-        package.paths.src.scss + "**/*.scss"
-    ], [ "styles" ]);
+    //    gulp.watch([ 
+    //        package.paths.src.scss + "**/*.scss"
+    //    ], [ "styles" ]);
 });
