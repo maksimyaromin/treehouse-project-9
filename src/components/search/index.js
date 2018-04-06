@@ -21,7 +21,7 @@ const SearchBox = (props) => {
                     <input
                         className="search-form__button"
                         type="submit"
-                        tabIndex="-1"
+                        tabIndex={-1}
                         value="Search"
                     />
                 </div>
