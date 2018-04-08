@@ -69,7 +69,6 @@ class Gallery extends Component {
         const location = nextProps.location.pathname;
         const isNewRoute = location !== "/" && this.props.location.pathname !== location;
         this.setState({
-            ...this.state,
             isHome: location === "/",
             error: null
         }, () => {
@@ -91,7 +90,6 @@ class Gallery extends Component {
             apiRequest = makeRequest(this.props.apiKey, tag, 1);
         }
         this.setState({
-            ...this.state,
             isLoading: true
         }, () => this.componentWillLoadImages(tag, apiRequest, source));
     }
@@ -114,7 +112,6 @@ class Gallery extends Component {
                     sources.set(tag, new SourceModel(response.photos));
                 }
                 this.setState({
-                    ...this.state,
                     sources,
                     isLoading: false
                 });
@@ -123,7 +120,6 @@ class Gallery extends Component {
            
             const { message, code } = response;
             this.setState({
-                ...this.state,
                 isLoading: false,
                 error: {
                     message,
@@ -132,7 +128,6 @@ class Gallery extends Component {
             });
         }).catch(err => {
             this.setState({
-                ...this.state,
                 isLoading: false,
                 error: {
                     message: err.message
@@ -160,7 +155,6 @@ class Gallery extends Component {
     onInput(e) {
         const value = e.target.value;
         this.setState({
-            ...this.state,
             keyWord: value
         });
     }
