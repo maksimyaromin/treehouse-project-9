@@ -1,6 +1,6 @@
 /*
-    Я написал немного стилей, чтобы проект выглядел приятно. Наконец-то в вашем задании я увидел такой пункт - напишите стили. Хотя я уверен, что я привысил
-    свои полномочия (вы просили дописать / изменить ваш файл стилей), но надеюсь что это приемлимо.
+   I wrote a few styles to make the project look nice. Finally,  I saw such the point - write styles in your task. Although I'm sure 
+   that I exceeded my powers (you asked me to finish / change your style file), but I hope that this is acceptable.
 */
 @import "compass/css3/box-sizing";
 @import "compass/css3/box-shadow";
@@ -18,7 +18,7 @@
 @import "common/footer";
 
 /*
-    Шапка сайта
+    Site header
 */
 .header {
     position: fixed;
@@ -71,7 +71,7 @@
 }
 
 /*
-    Стили для формы поиска изображений
+    The styles for the image search form
 */
 .search-form-wrapper {
     position: absolute;
@@ -142,7 +142,7 @@
 }
 
 /*
-    Стили для блока с контентом
+    Styles for a block with content
 */
 .content {
     position: relative;
@@ -152,7 +152,7 @@
 }
 
 /*
-    Стили для справочной шапки в изображениях
+    The styles for the help header of the images
 */
 .images-header {
     position: fixed;
@@ -213,7 +213,7 @@
 }
 
 /*
-    Стили для сетки с изображениями
+    Styles for images net
 */
 .images {
     & > .images-message__loader {
@@ -331,7 +331,7 @@
 }
 
 /*
-    Стили для информационных сообщений
+    Styles for information messages
 */
 .images-message {
     max-width: 80%;
@@ -366,7 +366,7 @@
 }
 
 /*
-    Стили для отображения ошибок
+    Styles for displaying errors
 */
 .error {
     max-width: 80%;

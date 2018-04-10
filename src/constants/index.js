@@ -1,6 +1,5 @@
-/* Файл содержит некоторые констаныт. Для такого маленького приложения они конечно не особо полезны. Но это хорошая практика. Мало вероятно что это приложение будет
-    развиваться, но почему от этого не писать код правильно */
-    
+/* The file contains some constants. For such a small application, they certainly are not particularly useful. But this is a good practice.It is unlikely that 
+   this application will be developed, but why not write the code correctly */
 export const FLICKR_API_URL = "https://api.flickr.com/services/rest/";
 export const FLICKR_API_METHODS = {
     [Symbol.for("FLICKR_METHOD.SEARCH")]: "flickr.photos.search"

@@ -1,8 +1,9 @@
 /*
-    Я использовал несколько галп-задач из предыдущего проекта для сборки стилей и изображений. Вы можете сказать, что в подходе create-react-app стили
-    пишутся для каждого компонента и собираются встроенным веб-паком. И даже при желании можно использовать SCSS или LESS. Но я считал и считаю такой подход
-    грязным. Много дискуссий на эту тему поднято, но мне приятней писать стили в отдельном месте. А верстку снабжать понятными CSS классами по БЭМ методологии (немного
-    мной модернизированной под себя). Мои галп-задачи встроены в процесс сборки. Запускать приложение вы можете по прежнему командой npm start, а собирать npm run build
+    I used several gulp tasks from the previous project to build styles and images. You may say that in the create-react-app approach, styles are written for each
+    component and are built by built-in web pack. And even one can use SCSS or LESS if wanted. But I consider this approach to be dirty.
+    Many discussions on this topic have been raised, but it is more pleasant for me to write styles in a separate file. And provide the layout with clear CSS classes based 
+    on BEM methodology (a bit modernized for my own needs). My gulp tasks are built into the build process. To run the application you can use command npm start, 
+    and npm run build - to build it.
 */
 const package = require("./package.json");
 

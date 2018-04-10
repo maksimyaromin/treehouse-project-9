@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-/* Компонент с полем поиска. Ничего сложного. Просто поле и кнопка. Вертку делал подобной на фликер. */
+/* Component with a search field. Nothing complicated. Just a field and a button. The layout is similar to a Flicker. */
 const SearchBox = (props) => {
     const icon = `
         <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="./assets/images/sprite.svg#icon-search"></use> `;
@@ -12,7 +12,7 @@ const SearchBox = (props) => {
                     className="search-form__input" 
                     type="text" 
                     name="tag" 
-                    placeholder="Тэг для поиска фото" 
+                    placeholder="What tag do you want?" 
                     defaultValue={props.keyWord}
                     onInput={e => props.onInput(e)}
                 />

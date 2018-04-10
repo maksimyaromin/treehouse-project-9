@@ -5,8 +5,8 @@ import { BrowserRouter as Router } from "react-router-dom";
 import FLICKR_API_KEY from "./config";
 import registerServiceWorker from "./registerServiceWorker";
 
-/* Основаная точка входа в приложение. Компоненту Gallery нужно на вход передать ключ к Flickr API. Этот ключ должен находится в файле config.js на том же уровне что и этот
-    файл. Подробнее вы можете прочитать в README.md в корне приложения. Без правильно созданного файла с ключом приложение не запустится. */
+/* The main entry point to the application.  Key for Flickr API must be transmit in the entrance to the Gallery component. This key must be in the config.js file 
+    at the same level as this file. See README.md in the root of the application for details. Without a properly created key file, the application will not run. */
 ReactDOM.render(
     (
         <Router>

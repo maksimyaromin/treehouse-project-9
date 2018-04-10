@@ -1,17 +1,17 @@
-/* Файл содержит вспомогательные функции, которые используются в разных местах приложения. */
+/* The file contains auxiliary functions that are used in different places of the application. */
 import {
     FLICKR_API_URL,
     FLICKR_API_METHODS
 } from "../constants";
 
-/* Создает запрос к АПИ фликера, добавляя к нему ключ пользователя, тэг и страницу, если это необходимо */
+/* Creates a request to the API flicker, adding to it a user key, tag, and the page if necessary */
 export const makeRequest = (apiKey, tag, page) => {
     return `
         ${FLICKR_API_URL}?
             method=${FLICKR_API_METHODS[Symbol.for("FLICKR_METHOD.SEARCH")]}&api_key=${apiKey}&tags=${tag}&page=${page}&format=json&nojsoncallback=1`;
 };
 
-/* Распространенная функция в JS. Облегчает работу при часто провторяющихся вызовах. Подробнее можете погуглить, если вдруг не слышали о такой. */
+/* A common function in JS. Helps to work with frequently repeated calls.  Google for details, if you have not heard about this. */
 export const debounce = (action, ms) => {
     let timer = null;
     return function (...args) {
@@ -26,8 +26,7 @@ export const debounce = (action, ms) => {
     };
 };
 
-/* Далее три функции: простая реализация анимации некоторых действий. Смысл функций отражает их название. */
-
+/* Here three functions: simple implementation of animation of some actions. The name of the functions reflects their meaning. */
 export const fadeIn = element => {
     if(element.classList.contains("fade-in")) { return; }
     let opacity = 0.1;
