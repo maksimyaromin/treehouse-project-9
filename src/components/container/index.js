@@ -3,15 +3,15 @@ import Photos from "../photos";
 import PropTypes from "prop-types";
 import SourceModel from "../../models/source";
 
-/* Общий контейнер для страницы с фотографиями */
+/* General container for a page with photos */
 const Container = (props) => {
     const source = props.source;
     const hasContent = source && source.hasImages;
     let message = null;
-    /* если в данный момент происходит загрузка (подгрузка новых) изображений, то в поле будет записан лоадер */
+    /* If images are loading at the moment, then the loader will be recorded in the field */
     if(props.isLoading) {
         message = <img className="images-message__loader" src="./assets/images/loader.svg" alt="Loading..." />;
-    } else if(!hasContent) { /* если нет изображений - то вывести или предупреждение, или приветственное сообщение */
+    } else if(!hasContent) { /* if there are no images - then display either a warning or a welcome message */
         message = props.tag
             ? (
                 <div className="images-message_empty">
@@ -21,8 +21,8 @@ const Container = (props) => {
             )
             : (
                 <div className="images-message_welcome">
-                    <span className="images-message__line-1">Добро пожаловать в галерею</span>
-                    <span className="images-message__line-2">Для того, чтобы просмотреть несколько замечательных фотографий введите интересующую вас категорию в поле для поиска вверху страницы. Также вы можете просмотреть фотографии из нескольких заготовленных нами для вас категорий.</span>
+                    <span className="images-message__line-1">Welcome to the Gallery</span>
+                    <span className="images-message__line-2">In order to view some wonderful photos, enter the category you are interested in in the search field at the top of the page. Also you can view photos from several categories we have prepared for you.</span>
                 </div>
             );
     }

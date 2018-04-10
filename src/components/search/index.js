@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-/* Component with a search field. Nothing complicated. Just a field and a button. The layout is similar to a Flicker. */
+/* Component with a search field. Nothing complicated. Just a field and a button. The layout is similar to a flicker. */
 const SearchBox = (props) => {
     const icon = `
         <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="./assets/images/sprite.svg#icon-search"></use> `;

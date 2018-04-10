@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-/* Представление ошибки 500 с выводом текста ошибки и кода ошибки Flickr (если он есть) */
+/* Error 500 representation with error text and Flicker error code (if any) */
 const Error500 = (props) => {
     return (
         <div className="error">
@@ -14,7 +14,7 @@ const Error500 = (props) => {
             </div>
             <div className="error-text">
                 <div className="error-text__description">
-                    <span>Извините, что-то пошло не так</span>
+                    <span>Sorry, something went wrong</span>
                 </div>
                 <div className="error-text__message">
                     <span>{props.message}</span>

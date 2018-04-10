@@ -1,6 +1,6 @@
 import React from "react";
 
-/* Представление ошибки 404 */
+/* Error 404 representation */
 const Error404 = () => {
     return (
         <div className="error">
@@ -9,7 +9,7 @@ const Error404 = () => {
             </div>
             <div className="error-text">
                 <div className="error-text__description">
-                    <span>К сожалению, запрошенная вами страница не найдена</span>
+                    <span>Sorry, the page you requested could not be found</span>
                 </div>
             </div>
         </div>

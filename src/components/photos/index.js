@@ -3,7 +3,7 @@ import Photo from "./photo";
 import PropTypes from "prop-types";
 import { Photo as PhotoModel } from "../../models/source";
 
-/* Компонент с контейнером для фотографий */
+/* Component with photo container */
 const Photos = (props) => {
     const images = props.source.map((image, index) => 
         <Photo key={image.id + index} image={image} />);
